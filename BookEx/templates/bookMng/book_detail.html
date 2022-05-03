@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+<!-- Changes Page Name -->
+{% block title %}
+    Book Detail
+{% endblock title %}
+
+<!-- Adds Paths into menu-->
+{% block sidenav %}
+    {% for item in item_list %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ item.link }}"> {{ item.item }} </a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+<!-- Creates Book Display under "Display Books" Page -->
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-6 border-right">
+            <div align="center">
+                <h1> Book Detail </h1>
+                <img src="{% static book.pic_path %}" height="200"/>
+                <p class="fw-bold" align="center">{{ book.name }}</p>
+                by {{ book.username }}
+                <br>
+                {{ book.web }}
+                <br>
+                {{ book.publishdate }}
+                <br>
+                ${{ book.price }}
+            </div>
+        </div>
+        <div class="col-lg-6 border-right">
+            <h1> Add to Shopping Cart </h1>
+            <form action="\book_add/{{ book.id }}">
+                <button class="btn btn-warning btn-rounded" type="Submit">Add</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-body">
+            <!-- comments -->
+            <h2>{{ comments.count }} comments</h2>
+
+            {% for comment in comments %}
+            <div class="comments" style="padding: 10px;">
+                <p class="font-weight-bold">
+                    {{ comment.name }}
+                    <span class=" text-muted font-weight-normal">
+              {{ comment.created_on }}
+            </span>
+                </p>
+                {{ comment.body | linebreaks }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-8 card mb-4  mt-3 ">
+        <div class="card-body">
+            {% if new_comment %}
+            <div class="alert alert-success" role="alert">
+                Your comment is awaiting moderation
+            </div>
+            {% else %}
+            <h3>Leave a comment</h3>
+            <form method="post" style="margin-top: 1.3em;">
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

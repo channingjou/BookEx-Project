@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+    About Us
+{% endblock title %}
+
+{% block sidenav %}
+    {% for item in item_list %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ item.link}}">{{ item.item }}</a>
+        </li>
+    {% endfor %}
+{% endblock sidenav %}
+
+{% block content %}
+<h1 align="center"> About Us Page </h1>
+
+<p align="center">
+    Welcome to our BookEx System.
+    <br>
+    We are the champions my friends. And we will keep on fight to the end. No
+    time for losers because we are the champions of the world.
+    <br><br>
+    Please meet the team:
+</p>
+
+<!-- Our Names -->
+<div class="d-flex justify-content-center">
+    <ul class="list-unstyled justify-content-center">
+        <li>Bryan Gonzalez</li>
+        <li>Anthony Edeza</li>
+        <li>Marian Gomez</li>
+        <li>Ryan Goshorn</li>
+        <li>Channing Jou</li>
+        <li>Minsu Lee</li>
+    </ul>
+</div>
+{% endblock content %}
